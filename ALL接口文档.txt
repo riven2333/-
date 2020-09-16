@@ -1,0 +1,221 @@
+接口文档
+一、budegt接口:
+1.显示所有的buget(每个月):[GET方法，无参数传入]
+106.15.238.105:8080/budget/details
+返回json格式，buget实体的List：String String double
+[
+    {
+        "id": "5f5ec510283c570ab45a41d9",
+        "dateByMonth": "2020-1-2",
+        "value": 5000.13
+    },
+    {
+        "id": "5f5ec763283c570ab45a41da",
+        "dateByMonth": "2020-3-23",
+        "value": 3400.0
+    }
+]
+
+2.修改budegt：[PUT方法]
+106.15.238.105:8080/budget/modify
+要求传入buget的entity：String String double
+{
+	"id":"5f5ec510283c570ab45a41d9",
+	"dateByMonth":"2020-1-2",
+	"value":2000.13
+}
+
+3.新增buget：[PUT方法]
+106.15.238.105:8080/budget/add
+要求传入buget的entity：[不需要传入id,mongoDB会自动生成]String double
+{
+    "dateByMonth":"2020-2-12",
+    "value":2690.78
+}
+
+4.删除budget：[Delete方法]
+106.15.238.105:8080/budget/delete
+要求传入buget的entity：String String double
+{
+    "id":"5f60db25b5dfba2de788ae68",
+    "dateByMonth":"2020-2-12",
+    "value":9000.98
+}
+
+二、expenses接口
+1.获取所有的expense记录[GET方法，无参数传入]
+106.15.238.105:8080/expenses/details
+返回json格式，expense实体的List：String String double String boolean boolean
+[
+    {
+        "id": "5f601ca07d7b2789f845d5cf",
+        "categoryName": "children",
+        "value": 200.98,
+        "date": "2020-9-2",
+        "bill": false,
+        "paid": false
+    },
+    {
+        "id": "5f6055df762d1c372653b25b",
+        "categoryName": "people",
+        "value": 234030.9,
+        "date": "2020-9-1",
+        "bill": true,
+        "paid": true
+    }
+]
+2.新增expense记录[PUT方法]
+106.15.238.105:8080/expenses/add_expense
+要求传入expense的entity[不需要传入id]：String double String boolean boolean
+{
+   "categoryName":"Kate",
+   "value":50,
+   "date":"2020-9-1",
+   "bill":true,
+   "paid":false
+}
+3.修改expense记录[PUT方法]
+106.15.238.105:8080/expenses/modify_expense
+要求传入expense的entity：String String double String boolean boolean
+{
+   "id":"5f616728b5dfba2de788ae69",
+   "categoryName":"kateahhaha",
+   "value":234030.90,
+   "date":"2020-9-1",
+   "bill":true,
+   "paid":true
+}
+
+4.删除expense记录[Delete方法 使用id删除，expense实体的id传入]
+106.15.238.105:8080/expenses/delete_expense/{id}
+
+5.删除expense记录[Delete方法]使用expense的实体删除，传入expense的entity：String String double String boolean boolean
+{
+   "id":"5f60861153413a57e38e0e3e",
+   "categoryName":"Feng",
+   "value":200,
+   "date":"2020-11-",
+   "bill":true,
+   "paid":true
+}
+
+
+6.增加category的类别[PUT方法]
+要求传入category的实体：不需要传入id String
+{
+    "name":"abroad"
+}
+
+7.修改category的类别[PUT方法]
+要求传入category的实体：String String
+{
+    "id":"5f617680acedb76416ec27d0",
+    "name":"adc"
+}
+
+8.删除category中的记录，有两种方式，传入id或者传入category实体，自行选择
+传入category实体的id：106.15.238.105:8080/expenses/category/delete/{id}
+传入category实体：String String
+{
+    "id":"5f5ecdf5283c570ab45a41dd",
+    "name":"education"
+}
+
+9.获得所有的category记录[GET方法，无需传入参数]
+106.15.238.105:8080/expenses/category_details
+返回json格式，category实体的List：String String
+[
+    {
+        "id": "5f603819b55d6128045fec46",
+        "name": "tusca"
+    },
+    {
+        "id": "5f60389bb55d6128045fec47",
+        "name": "tusca"
+    }
+]
+
+
+三、bills接口
+1.获得所有是bills的记录[GET方法，无需传入参数]：
+106.15.238.105:8080/bills/details
+返回json格式，bills实体的List：String String double String boolean boolean
+[
+    {
+        "id": "5f6055df762d1c372653b25b",
+        "categoryName": "people",
+        "value": 234030.9,
+        "date": "2020-9-1",
+        "bill": true,
+        "paid": true
+    },
+    {
+        "id": "5f607dc97d7b2789f845d5d1",
+        "categoryName": "kate",
+        "value": 2029.98,
+        "date": "2020-9-8",
+        "bill": true,
+        "paid": false
+    }
+]
+
+
+四、income接口
+1.获得所有的income记录[GET方法，无需传入参数]:
+106.15.238.105:8080/income/details
+返回json格式，income实体的List：String String double String
+[
+    {
+        "id": "5f5ecc9f283c570ab45a41db",
+        "date": "2020-1-2",
+        "value": 2090.32,
+        "description": "use for children"
+    },
+    {
+        "id": "5f60930b1b5df704fed1c864",
+        "date": "20207-6",
+        "value": 234.0,
+        "description": "money from mom"
+    }
+]
+2.删除income记录[Delete方法]
+106.15.238.105:8080/income/delete_income
+传入incomem实体：String String double String
+{
+    "id":"5f60930b1b5df704fed1c864",
+    "date":"20207-6",
+    "value":234.00,
+    "description":"money from mom"
+}
+3.修改income记录[PUT方法]
+106.15.238.105:8080/income/modify_income
+传入income实体：String String double String
+{
+    "id":"5f617a8e8b7d7031472dc15a",
+    "date":"20207-6",
+    "value":234.00,
+    "description":"money from momyeyeyy h"
+}
+
+4.新增income记录[PUT方法，无需传入id]
+106.15.238.105:8080/income/add_income
+传入income实体：String double String
+{
+    "date":"20207-6",
+    "value":234.00,
+    "description":"money from momhaah"
+}
+
+
+五、home接口
+106.15.238.105:8080/home
+返回json格式
+{
+    "expensesValue": 236751.76,
+    "billsValue": 236550.78,
+    "billsUnpaid": 2230.96,
+    "incomeValue": 2324.32,
+    "budget": 90.13,
+    "accountValue": 200.0
+}
+
